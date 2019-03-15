@@ -1,0 +1,40 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"heroku": {
+		"goVersion": "go1.11"
+	},
+	"package": [
+		{
+			"checksumSHA1": "1BNLPUxkKdL1fPBcD/NuSDGfayk=",
+			"path": "github.com/lib/pq",
+			"revision": "7aad666537ab32b76f0966145530335f1fed51fd",
+			"revisionTime": "2019-03-14T17:36:50Z"
+		},
+		{
+			"checksumSHA1": "ATnwV0POluBNQEMjPdylodz0oK0=",
+			"path": "github.com/lib/pq/oid",
+			"revision": "7aad666537ab32b76f0966145530335f1fed51fd",
+			"revisionTime": "2019-03-14T17:36:50Z"
+		},
+		{
+			"checksumSHA1": "KicKT3XIQER5CM6DUGLWQxkvekM=",
+			"path": "github.com/yhat/scrape",
+			"revision": "24b7890b0945459dbf91743e4d2ac5d75a51fee2",
+			"revisionTime": "2016-11-28T14:46:10Z"
+		},
+		{
+			"checksumSHA1": "qyU58wqixJNIOwqz2CXE2eMBNTk=",
+			"path": "golang.org/x/net/html",
+			"revision": "9f648a60d9775ef5c977e7669d1673a7a67bef33",
+			"revisionTime": "2019-03-13T06:50:29Z"
+		},
+		{
+			"checksumSHA1": "XtSbs1gpyaEsIqf6VRhJsgOQe5U=",
+			"path": "golang.org/x/net/html/atom",
+			"revision": "9f648a60d9775ef5c977e7669d1673a7a67bef33",
+			"revisionTime": "2019-03-13T06:50:29Z"
+		}
+	],
+	"rootPath": "github.com/brennengreen/golist"
+}
