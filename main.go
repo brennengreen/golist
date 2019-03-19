@@ -15,7 +15,9 @@ import (
 	"io/ioutil"
 	"strconv"
 	"strings"
-	//"log"
+	"net/http"
+	"os"
+	"log"
 
 	"github.com/brennengreen/golist/src/goscrape"
 	_ "github.com/lib/pq"
@@ -34,6 +36,21 @@ type Brand struct {
 }
 
 func main() {
+	port := ":"+os.Getenv("PORT")
+	//port := ":1234"
+	http.HandleFunc("/", handler)
+	log.Fatal(http.ListenAndServe(port, nil))
+	
+}
+
+func handler(w http.ResponseWriter, r *http.Request) {
+	count := scrape()
+	fmt.Fprintln(w, "Found ", count, " items to add to database")
+
+}
+
+func scrape() int {
+	count := 0
 	// connect() uses internal settings not publicly shared to connect to a RWS Postgres Database
 	database := connect()
 	defer database.Close()
@@ -70,6 +87,7 @@ func main() {
 		case err == sql.ErrNoRows:
 			isMatch, brand := checkMatch(brands, item.Title)
 			if isMatch {
+				count = count +1
 				fmt.Printf("Adding %s to database..", item.Link)
 				_, err := database.Exec("INSERT INTO Posts (title, name, price, link) VALUES ($1, $2, $3, $4)", item.Title, brand, item.Price, item.Link)
 				if err != nil {
@@ -166,6 +184,7 @@ func main() {
 			}
 		}
 	}
+	return count
 }
 
 func connect() *sql.DB {
