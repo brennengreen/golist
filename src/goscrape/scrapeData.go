@@ -3,7 +3,7 @@ package goscrape
 import (
 	"fmt"
 	"database/sql"
-	"io/ioutil"
+	//"io/ioutil"
 	"strconv"
 	"strings"
 
