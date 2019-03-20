@@ -149,7 +149,8 @@ func ScrapeData() int {
 }
 
 func connect() *sql.DB {
-	db ,err := sql.Open("postgres", returnFileData("dbConnectionInfo.txt"))
+	dbStr := "host=learn-this-shit.clj9pnmafa0l.us-east-2.rds.amazonaws.com port=5432 user=brenneng password=brodog12 dbname=learning_shit sslmode=disable"
+	db ,err := sql.Open("postgres", dbStr)
 	if err != nil {
 		panic(err)
 	}
@@ -162,14 +163,14 @@ func connect() *sql.DB {
 	return db
 }
 
-func returnFileData(filePath string) string {
+/*func returnFileData(filePath string) string {
 	f, err := ioutil.ReadFile(filePath)
 	if err != nil {
 		panic(err)
 	}
 
 	return string(f)
-}
+}*/
 
 func checkMatch(keywords []string, matchingString string) (bool, string) {
 	tokenizedStr := strings.Split(matchingString, " ")
