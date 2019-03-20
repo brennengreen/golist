@@ -155,7 +155,7 @@ func connect() *sql.DB {
 		panic(err)
 	}
 
-	_, err := db.Exec("SELECT 1")
+	_, err = db.Exec("SELECT 1")
 	if err != nil {
 		panic(err)
 	}
