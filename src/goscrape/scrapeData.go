@@ -149,7 +149,7 @@ func ScrapeData() int {
 }
 
 func connect() *sql.DB {
-	db ,err := sql.Open("postgres", returnFileData("~/dbConnectionInfo.txt"))
+	db ,err := sql.Open("postgres", returnFileData("../../dbConnectionInfo.txt"))
 	if err != nil {
 		panic(err)
 	}
