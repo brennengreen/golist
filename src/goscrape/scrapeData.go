@@ -117,7 +117,7 @@ func UpdatePrices() {
 	defer rows.Close()
 
 	for rows.Next() {
-		var itemname string
+		var itemName string
 		err := rows.Scan(&itemName)
 		if err != nil {
 			panic(err)
