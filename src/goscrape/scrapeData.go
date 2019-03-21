@@ -6,6 +6,7 @@ import (
 	//"io/ioutil"
 	"strconv"
 	"strings"
+	"os"
 
 	_ "github.com/lib/pq"
 )
@@ -149,13 +150,7 @@ func ScrapeData() int {
 }
 
 func connect() *sql.DB {
-	dbStr := "host=learn-this-shit.clj9pnmafa0l.us-east-2.rds.amazonaws.com port=5432 user=brenneng password=brodog12 dbname=learning_shit sslmode=disable"
-	db ,err := sql.Open("postgres", dbStr)
-	if err != nil {
-		panic(err)
-	}
-
-	_, err = db.Exec("SELECT 1")
+	db ,err := sql.Open("postgres", os.Getenv("DATABASE_URL"))
 	if err != nil {
 		panic(err)
 	}
