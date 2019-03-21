@@ -134,7 +134,10 @@ func UpdatePrices() {
 			panic(err)
 		}
 		fmt.Println(avgstr)
-		avg = strconv.ParseInt(avgstr, 10, 64)
+		avg, err = strconv.ParseInt(avgstr, 10, 64)
+		if err != nil {
+			panic(err)
+		}
 		if avg != 0 {
 			_, err := database.Exec("UPDATE Items SET avgprice=$1 WHERE name=$2", avg, item)
 			if err != nil {
