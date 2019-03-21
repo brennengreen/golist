@@ -137,9 +137,9 @@ func UpdatePrices() {
 		if err != nil {
 			panic(err)
 		}
-		avg := int(avg)
-		if avg != 0 {
-			_, err := database.Exec("UPDATE Items SET avgprice=$1 WHERE name=$2", avg, item)
+		avgInt := int(avg)
+		if avgInt != 0 {
+			_, err := database.Exec("UPDATE Items SET avgprice=$1 WHERE name=$2", avgInt, item)
 			if err != nil {
 				fmt.Println("Failed to update ", item, " price!")
 			}
