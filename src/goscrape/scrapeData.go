@@ -132,7 +132,6 @@ func UpdatePrices() {
 		if err != nil {
 			panic(err)
 		}
-		fmt.Println(avgstr)
 		avg, err := strconv.ParseFloat(avgstr, 64)
 		if err != nil {
 			panic(err)
@@ -144,7 +143,7 @@ func UpdatePrices() {
 				fmt.Println("Failed to update ", item, " price!")
 			}
 		} else {
-			fmt.Println(" ")
+			fmt.Println("Skipping item with no price")
 		}
 		
 	}
