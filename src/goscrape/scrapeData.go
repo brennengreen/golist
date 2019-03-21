@@ -141,7 +141,7 @@ func UpdatePrices() {
 				fmt.Println("Failed to update ", item, " price!")
 			}
 		} else {
-			fmt.Println("Skipping post with price 0")
+			fmt.Println("Skipping post with price ", avg)
 		}
 		
 	}
