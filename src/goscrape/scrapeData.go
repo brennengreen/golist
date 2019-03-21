@@ -54,9 +54,13 @@ func ScrapeData() int {
 		case err == sql.ErrNoRows:
 			isMatch, brand := checkMatch(brands, item.Title)
 			if isMatch {
+				_, err := database.Exec("INSERT INTO Items (brandname, name) VALUES ($1, $2)", brand, getItemName(brand, item.Title))
+				if err != nil {
+					panic(err)
+				}
 				count = count +1
 				fmt.Printf("Adding %s to database..", item.Link)
-				_, err := database.Exec("INSERT INTO Posts (title, name, price, link) VALUES ($1, $2, $3, $4)", item.Title, brand, item.Price, item.Link)
+				_, err = database.Exec("INSERT INTO Posts (title, name, price, link) VALUES ($1, $2, $3, $4)", item.Title, brand, item.Price, item.Link)
 				if err != nil {
 					panic(err)
 				}
@@ -183,4 +187,14 @@ func checkMatch(keywords []string, matchingString string) (bool, string) {
 		}
 	}
 	return false, ""
+}
+
+func getItemName(brand string, postTitle string) string {
+	tokenizedStr := strings.Split(postTitle, " ")
+	for i, token := range tokenizedStr {
+		if strings.ToLower(token) == strings.ToLower(brand) {
+			return tokenizedStr[i+1]
+		}
+	}
+	return ""
 }
