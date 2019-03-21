@@ -133,7 +133,7 @@ func UpdatePrices() {
 		if err != nil {
 			panic(err)
 		}
-
+		fmt.Println(avgstr)
 		avg, _ = strconv.Atoi(avgstr)
 		if avg != 0 {
 			_, err := database.Exec("UPDATE Items SET avgprice=$1 WHERE name=$2", avg, item)
@@ -141,7 +141,7 @@ func UpdatePrices() {
 				fmt.Println("Failed to update ", item, " price!")
 			}
 		} else {
-			fmt.Println("Skipping post with price ", avg)
+			fmt.Println(" ")
 		}
 		
 	}
