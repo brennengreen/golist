@@ -123,7 +123,7 @@ func UpdatePrices() {
 			panic(err)
 		}
 
-		items = append(items,itemname)
+		items = append(items,itemName)
 	}
 
 	for _,item := range items {
