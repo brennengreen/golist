@@ -61,7 +61,7 @@ func ScrapeData() int {
 				}
 				count = count +1
 				fmt.Printf("Adding %s to database..", item.Link)
-				_, err = database.Exec("INSERT INTO Posts (title, name, price, link) VALUES ($1, $2, $3, $4)", item.Title, brand, item.Price, item.Link)
+				_, err = database.Exec("INSERT INTO Posts (title, name, price, link) VALUES ($1, $2, $3, $4)", item.Title, itemName, item.Price, item.Link)
 				if err != nil {
 					panic(err)
 				}
@@ -106,7 +106,42 @@ func ScrapeData() int {
 }
 
 func UpdatePrices() {
+	database := connect()
+	defer database.Close()
 
+	var items []string
+	rows, err := database.Query("SELECT name FROM Items")
+	if err != nil {
+		panic(err)
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var itemname string
+		err := rows.Scan(&itemName)
+		if err != nil {
+			panic(err)
+		}
+
+		items = append(items,itemname)
+	}
+
+	for _,item := range items {
+		var avg int
+		err := database.QueryRow("SELECT AVG(price) FROM Posts WHERE name=$1", item).Scan(&avg)
+		if err != nil {
+			panic(err)
+		}
+		if avg != 0 {
+			_, err := database.Exec("UPDATE Items SET avgprice=$1 WHERE name=$2", avg, item)
+			if err != nil {
+				fmt.Println("Failed to update ", item, " price!")
+			}
+		} else {
+			fmt.Println("Skipping post with price 0")
+		}
+		
+	}
 }
 
 func connect() *sql.DB {
