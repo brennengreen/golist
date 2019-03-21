@@ -134,7 +134,7 @@ func UpdatePrices() {
 			panic(err)
 		}
 		fmt.Println(avgstr)
-		avg, err = strconv.ParseInt(avgstr, 10)
+		avg, err = int(strconv.ParseFloat(avgstr, 64))
 		if err != nil {
 			panic(err)
 		}
