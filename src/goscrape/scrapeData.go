@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"database/sql"
 	//"io/ioutil"
-	//"strconv"
+	"strconv"
 	"strings"
 	"os"
 
@@ -128,10 +128,13 @@ func UpdatePrices() {
 
 	for _,item := range items {
 		var avg int
-		err := database.QueryRow("SELECT AVG(price) FROM Posts WHERE name=$1", item).Scan(&avg)
+		var avgstr []uint8
+		err := database.QueryRow("SELECT AVG(price) FROM Posts WHERE name=$1", item).Scan(&avgstr)
 		if err != nil {
 			panic(err)
 		}
+
+		avg, _ = strconv.ParseInt(avgstr, 10, 64)
 		if avg != 0 {
 			_, err := database.Exec("UPDATE Items SET avgprice=$1 WHERE name=$2", avg, item)
 			if err != nil {
