@@ -30,6 +30,7 @@ func main() {
 func handler(w http.ResponseWriter, r *http.Request) {
 	count := goscrape.ScrapeData()
 	fmt.Fprintln(w, "Found ", count, " items to add to database")
+	goscrape.UpdatePrices()
 
 }
 

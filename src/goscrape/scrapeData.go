@@ -101,57 +101,12 @@ func ScrapeData() int {
 			fmt.Println("Found ", item.Link)
 			continue;
 		}
-	}
-
-	// Looping through rows example 
-	fmt.Printf("\n\nUpdating database!\n")
-	var (names []string)
-	rows, err := database.Query("SELECT name FROM Items")
-	if err != nil {
-		panic(err)
-	} 
-	defer rows.Close()
-	for rows.Next() {
-		var (
-			name string
-		)
-		err := rows.Scan(&name)
-		if err != nil {
-			panic(err)
-		}
-		names = append(names, name)
-	}
-
-	for _, name := range names {
-		priceRows, err := database.Query("SELECT AVG(price) FROM Posts WHERE name=$1", name)
-		if err != nil {
-			panic(err)
-		}
-		defer priceRows.Close()
-
-		var avg []uint8
-		for priceRows.Next() {
-			err := priceRows.Scan(&avg)
-			if err != nil {
-				panic(err)
-			}
-		}
-		avgStr := string(avg)
-		avgFloat,err := strconv.ParseFloat(avgStr,64)
-		if err != nil {
-			avgFloat = 0.0
-		} else {
-			if avgFloat > 0.0 {
-				_, err := database.Exec("UPDATE Items SET avgprice=$1 WHERE name=$2", int(avgFloat), name)
-				if err != nil {
-					panic(err)
-				}
-				fmt.Println(name, ": ", int(avgFloat))
-			} else {
-			}
-		}
-	}
+	}	
 	return count
+}
+
+func UpdatePrices() {
+
 }
 
 func connect() *sql.DB {
@@ -167,15 +122,6 @@ func connect() *sql.DB {
 
 	return db
 }
-
-/*func returnFileData(filePath string) string {
-	f, err := ioutil.ReadFile(filePath)
-	if err != nil {
-		panic(err)
-	}
-
-	return string(f)
-}*/
 
 func checkMatch(keywords []string, matchingString string) (bool, string) {
 	tokenizedStr := strings.Split(matchingString, " ")
