@@ -127,18 +127,17 @@ func UpdatePrices() {
 	}
 
 	for _,item := range items {
-		var avg int
 		var avgstr string
 		err := database.QueryRow("SELECT AVG(price) FROM Posts WHERE name=$1", item).Scan(&avgstr)
 		if err != nil {
 			panic(err)
 		}
 		fmt.Println(avgstr)
-		avg, err = strconv.ParseFloat(avgstr, 64)
+		avg, err := strconv.ParseFloat(avgstr, 64)
 		if err != nil {
 			panic(err)
 		}
-		avg = int(avg)
+		avg := int(avg)
 		if avg != 0 {
 			_, err := database.Exec("UPDATE Items SET avgprice=$1 WHERE name=$2", avg, item)
 			if err != nil {
