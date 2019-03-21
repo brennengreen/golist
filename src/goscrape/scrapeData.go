@@ -54,9 +54,10 @@ func ScrapeData() int {
 		case err == sql.ErrNoRows:
 			isMatch, brand := checkMatch(brands, item.Title)
 			if isMatch {
-				_, err := database.Exec("INSERT INTO Items (brandname, name) VALUES ($1, $2)", brand, getItemName(brand, item.Title))
+				itemName := getItemName(brand, item.Title)
+				_, err := database.Exec("INSERT INTO Items (brandname, name) VALUES ($1, $2)", brand, itemName)
 				if err != nil {
-					panic(err)
+					log.Println(itemName, " already exists")
 				}
 				count = count +1
 				fmt.Printf("Adding %s to database..", item.Link)
