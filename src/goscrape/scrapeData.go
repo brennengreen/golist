@@ -128,7 +128,7 @@ func UpdatePrices() {
 
 	for _,item := range items {
 		var avg int
-		var avgstr []uint8
+		var avgstr string
 		err := database.QueryRow("SELECT AVG(price) FROM Posts WHERE name=$1", item).Scan(&avgstr)
 		if err != nil {
 			panic(err)
