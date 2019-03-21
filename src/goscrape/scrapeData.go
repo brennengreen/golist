@@ -57,7 +57,7 @@ func ScrapeData() int {
 				itemName := getItemName(brand, item.Title)
 				_, err := database.Exec("INSERT INTO Items (brandname, name) VALUES ($1, $2)", brand, itemName)
 				if err != nil {
-					log.Println(itemName, " already exists")
+					fmt.Println(itemName, " already exists")
 				}
 				count = count +1
 				fmt.Printf("Adding %s to database..", item.Link)
