@@ -180,7 +180,11 @@ func getItemName(brand string, postTitle string) string {
 	tokenizedStr := strings.Split(postTitle, " ")
 	for i, token := range tokenizedStr {
 		if strings.ToLower(token) == strings.ToLower(brand) {
-			return tokenizedStr[i+1]
+			if len(tokenizedStr) > 1 {
+				return tokenizedStr[i+1]
+			} else {
+				return tokenizedStr[i]
+			}
 		}
 	}
 	return ""
