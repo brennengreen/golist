@@ -185,8 +185,7 @@ func getItemName(brand string, postTitle string) string {
 					return "Couldn't find item name"
 				}
 				return tokenizedStr[i+1]
-			}
-			else {
+			} else {
 				return tokenizedStr[i]
 			}
 		}
