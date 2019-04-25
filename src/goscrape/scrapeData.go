@@ -181,7 +181,7 @@ func getItemName(brand string, postTitle string) string {
 	for i, token := range tokenizedStr {
 		if strings.ToLower(token) == strings.ToLower(brand) {
 			if len(tokenizedStr) > 1 {
-				if i == len(tokenizedStr - 1) {
+				if i == len(tokenizedStr) - 1 {
 					return "Couldn't find item name"
 				}
 				return tokenizedStr[i+1]
